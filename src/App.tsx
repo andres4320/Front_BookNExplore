@@ -1,13 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { routes } from "./routes/route";
+import { createElement } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const router = createBrowserRouter(
+    routes.map((route) =>({
+      ...route,
+      element: createElement(route.element),
+      children: route.children?.map((child) =>({
+        ...child,
+        element: createElement(child.element),
+      }))
+
+    }))
+  );
 
   return (
     <>
-      <h1 className='bg-red-500'>Holaaa</h1>
+      <RouterProvider router={router} />
     </>
   )
 }
