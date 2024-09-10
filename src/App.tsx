@@ -4,6 +4,9 @@ import {
 } from "react-router-dom";
 import { routes } from "./routes/route";
 import { createElement } from "react";
+import { Provider } from "react-redux";
+import { persistor, store } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
 
@@ -20,9 +23,11 @@ function App() {
   );
 
   return (
-    <>
-      <RouterProvider router={router} />
-    </>
+    <Provider store={store} >
+      <PersistGate persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
   )
 }
 
