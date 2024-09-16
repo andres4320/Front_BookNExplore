@@ -10,6 +10,7 @@ import { loginUser } from '../store/authSlice';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
+import Footer from '../components/footer/Footer';
 
 const Login = () => {
 
@@ -104,6 +105,7 @@ const Login = () => {
         </div>
       </div>
     </section>
+    <Footer />
     </>
   )
 }
