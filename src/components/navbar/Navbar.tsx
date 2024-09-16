@@ -39,24 +39,27 @@ const Navbar = () => {
 
   return (
     <div className={!isMenuOpen
-      ? "flex items-center w-full px-4 justify-around bg-slate-500"
-      : "flex flex-col w-full items-center px-4 justify-around bg-slate-500"
+      ? "flex items-center w-full px-4 bg-slate-500 justify-between"
+      : "flex flex-col w-full items-center px-4 bg-slate-500 max-h-screen overflow-auto justify-center"
     }>
       <Link to="/" className="text-white font-semibold text-xl p-2">BookNExplore</Link>
-      {windowDimension.innerWidth >= 768
-        ? links.map(l => (
-          <Link className="text-xl text-white font-semibold" to={l.link} key={l.id}>{l.text}</Link>
-        ))
-        : isMenuOpen && links.map(l => (
-          <Link className="text-xl text-white font-semibold" to={l.link} key={l.id}>{l.text}</Link>
-        ))}
-      {isMenuOpen && windowDimension.innerWidth < 768 ? (
-        <AiOutlineClose cursor={"pointer"} size={24} color="#f2f2f2" onClick={() => setIsMenuOpen(false)} />
-      ) : (windowDimension.innerWidth < 768 && (
-        <AiOutlineMenu cursor={"pointer"} size={24} color="#f2f2f2" onClick={() => setIsMenuOpen(true)} />
-      )
-      )}
+      <div className={`flex ${isMenuOpen ? "flex-col items-center" : "items-center space-x-2"}`}>
+        {windowDimension.innerWidth >= 768
+          ? links.map(l => (
+            <Link className="text-m text-white font-normal hover:font-semibold hover:text-yellow-300 duration-300 mx-2" to={l.link} key={l.id}>{l.text}</Link>
+          ))
+          : isMenuOpen && links.map(l => (
+            <Link className="text-sm text-white font-normal hover:font-semibold hover:text-yellow-300 duration-300 mb-2" to={l.link} key={l.id}>{l.text}</Link>
+          ))}
+        {isMenuOpen && windowDimension.innerWidth < 768 ? (
+          <AiOutlineClose cursor={"pointer"} size={24} color="#f2f2f2" onClick={() => setIsMenuOpen(false)} />
+        ) : (windowDimension.innerWidth < 768 && (
+          <AiOutlineMenu cursor={"pointer"} size={24} color="#f2f2f2" onClick={() => setIsMenuOpen(true)} />
+        )
+        )}
+      </div>
     </div>
   );
 }
+
 export default Navbar;
