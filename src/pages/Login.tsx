@@ -2,12 +2,14 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import InputLabel from '../components/input/InputLabel';
 import Button from '../components/button/Button';
+import Navbar from '../components/navbar/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 // import { Api } from '../services/Api';
 import { RootState, useAppDispatch } from '../store';
 import { loginUser } from '../store/authSlice';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const Login = () => {
 
@@ -36,17 +38,28 @@ const Login = () => {
   // Función de envío del formulario
   const onSubmit = (values: typeof initialValues) => {
     dispatch(loginUser(values)).then((response) => {
-      navigate("/dashboard");
-      // console.log(response);
+      if (response.type === 'auth/loginUser/fulfilled') {
+        navigate("/dashboard");
+      } else {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Datos ingresados son incorrectos",
+          showConfirmButton: false,
+          timer: 1500
+         });
+        }
       })
   };
   return (
+    <>
+    <Navbar />
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Registrarme
+              Iniciar Sesión
             </h1>
             <Formik
               initialValues={initialValues}
@@ -91,6 +104,7 @@ const Login = () => {
         </div>
       </div>
     </section>
+    </>
   )
 }
 

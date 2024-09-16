@@ -3,7 +3,15 @@ import Welcome from "../pages/Welcome"
 import Login from "../pages/Login"
 import Register from "../pages/Register"
 import BaseDashBoard from "../pages/layout/BaseDashBoard"
-export const routes = [
+
+type TypeRoute = {
+    path: string;
+    element: any;
+    isProtected?: boolean;
+    children?: TypeRoute[];
+}
+
+export const routes: TypeRoute[] = [
     {
         path: '/',
         element: Welcome,
@@ -19,6 +27,7 @@ export const routes = [
     {
         path: '/dashboard',
         element: BaseDashBoard,
+        isProtected: true,
 
         children:[
             {
